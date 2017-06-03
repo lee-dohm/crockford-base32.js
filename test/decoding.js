@@ -3,6 +3,28 @@ const expect = require('chai').expect
 const base32 = require('../lib/index.js')
 
 describe('decoding', function () {
+  describe('decodeChunk', function () {
+    it('decodes two symbols', function () {
+      expect(base32.decodeChunk('A1')).to.equal('P')
+    })
+
+    it('decodes four symbols', function () {
+      expect(base32.decodeChunk('A185')).to.equal('PP')
+    })
+
+    it('decodes five symbols', function () {
+      expect(base32.decodeChunk('A1850')).to.equal('PPP')
+    })
+
+    it('decodes seven symbols', function () {
+      expect(base32.decodeChunk('A1850M2')).to.equal('PPPP')
+    })
+
+    it('decodes eight symbols', function () {
+      expect(base32.decodeChunk('A1850M2G')).to.equal('PPPPP')
+    })
+  })
+
   describe('decodeSingleValue', function () {
     it('decodes any of the symbols to their numeric value', function () {
       expect(base32.decodeSingleValue('0')).to.equal(0)
